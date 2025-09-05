@@ -5,6 +5,16 @@ import sqlite3
 from datetime import datetime
 from typing import Dict, Any
 import aiofiles
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Токен бота з змінних середовища
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+
+if not BOT_TOKEN:
+    raise ValueError("BOT_TOKEN не встановлено в змінних середовища")
 
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart, Command
@@ -22,7 +32,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Токен бота (замініть на свій)
-BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"
+BOT_TOKEN = "8395733479:AAF4mxEpGEIcym5NNq2krPLOHBLfpcRveDc"
 
 # Директорія для збереження файлів
 FILES_DIR = "files"
