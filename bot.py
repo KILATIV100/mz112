@@ -42,6 +42,9 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 if not BOT_TOKEN:
     raise ValueError("BOT_TOKEN не встановлено в змінних середовища")
+    
+    Build command: pip install -r requirements.txt
+Run command: python bot.py
 
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart, Command
