@@ -7,6 +7,33 @@ from typing import Dict, Any
 import aiofiles
 import os
 from dotenv import load_dotenv
+import asyncio
+from aiohttp import web
+
+async def health_check(request):
+    return web.Response(text="Bot is running!")
+
+async def start_web_server():
+    app = web.Application()
+    app.router.add_get('/health', health_check)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, '0.0.0.0', int(os.getenv('PORT', 8080)))
+    await site.start()
+    print("Web server started on port", os.getenv('PORT', 8080))
+
+async def main():
+    """Основна функція запуску бота"""
+    init_database()
+    logger.info("База даних ініціалізована")
+    
+    # Запуск веб-сервера для health check
+    await start_web_server()
+    
+    try:
+        await dp.start_polling(bot)
+    finally:
+        await bot.session.close()
 
 load_dotenv()
 
